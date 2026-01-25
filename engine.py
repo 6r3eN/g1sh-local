@@ -56,12 +56,12 @@ class G1shEngine:
             "- be direct, skip preambles like 'sure!' or 'happy to help!'\n"
             "- if you don't know something, just say 'not sure' or 'don't know'\n\n"
             f"current conversation: {int(message_count)} messages"
-            )
+        )
     
     def refresh_system_prompt(self):
         """Update system prompt with current message count"""
         if self.messages and self.messages[0]["role"] == "system":
-            self.messages[0]["content"] = self.get_system_prompt(len(self.messages))
+            self.messages[0]["content"] = self.get_system_prompt(len(self.messages) - 1)
     
     def load_memory(self):
         """Load conversation history from file"""
@@ -287,9 +287,10 @@ class G1shEngine:
         """Regenerate the last response"""
         if len(self.messages) > 1 and self.messages[-1]["role"] == "assistant":
             self.messages.pop()
-            if self.messages[-1]["role"] == "user":
+            if self.messages and self.messages[-1]["role"] == "user":
                 last_user_msg = self.messages[-1]["content"]
                 self.messages.pop()
+                self.save_memory()
                 return self.chat(last_user_msg, callback)
         return False, "nothing to retry"
 
@@ -307,6 +308,8 @@ class G1shEngine:
 
     def set_context_window(self, num_ctx):
         try:
+            if not isinstance(num_ctx, int):
+                return False, "num_ctx must be an integer"
             if 512 <= num_ctx <= 32768:
                 self.config["num_ctx"] = num_ctx
                 self.save_config()
