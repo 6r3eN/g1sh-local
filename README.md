@@ -25,7 +25,11 @@ git clone https://github.com/6r3eN/g1sh-local.git
 cd g1sh-local
 ````
 
-## install ollama and start it:
+## install ollama
+install ollama from https://ollama.com  
+(make sure it's in your PATH)
+
+## start the ollama server:
 ```bash
 ollama serve
 ```
