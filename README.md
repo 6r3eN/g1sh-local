@@ -226,4 +226,3 @@ it's pronounced like "gish" (soft g). name comes from my nickname (green or gree
 **tested on:** ryzen 5 5600gt (igpu), 32gb ram, debian 13 - works great with llama3.2:3b
 
 ---
-```
