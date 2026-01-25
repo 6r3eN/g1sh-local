@@ -181,8 +181,7 @@ class G1shCLI:
         
         if success:
             self.last_response = response
-            
-            # Check for context overflow
+
             overflow, total, max_tokens = self.engine.check_context_overflow()
             if overflow:
                 print(f" Context usage: {total}/{max_tokens} tokens (consider using /trim or /reset)")
@@ -202,7 +201,7 @@ class G1shCLI:
             print()
         else:
             success, response = self.engine.retry_last_message()
-            print(f"g1sh: {response}\n")  # always print even on error
+            print(f"g1sh: {response}\n")
         
         if success:
             self.last_response = response
