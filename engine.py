@@ -18,7 +18,7 @@ DEFAULT_CONFIG = {
     "temperature": 0.7,
     "top_p": 0.9,
     "num_ctx": 4096,
-    "num_predict": 120
+    "num_predict": 1024
 }
 
 class G1shEngine:
