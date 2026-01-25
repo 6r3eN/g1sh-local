@@ -1,0 +1,12 @@
+# python junk
+.venv/
+__pycache__/
+*.pyc
+
+# runtime files
+*.log
+g1sh_memory.json
+
+# optional OS/editor junk
+.DS_Store
+.vscode/
