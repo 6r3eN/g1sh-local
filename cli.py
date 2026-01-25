@@ -41,6 +41,9 @@ class G1shCLI:
                 lines.append(line)
             except (KeyboardInterrupt, EOFError):
                 return None
+        if not lines:
+            print("g1sh: cancelled multiline input\n")
+            return None
         return "\n".join(lines)
     
     def handle_command(self, user_input):
@@ -138,8 +141,9 @@ class G1shCLI:
             return True
         
         if user_input.lower() == "/last":
-            if self.last_response:
-                print(f"g1sh: {self.last_response}\n")
+            last_msg = self.last_response or self.engine.get_last_assistant_message()
+            if last_msg:
+                print(f"g1sh: {last_msg}\n")
             else:
                 print("g1sh: no previous response\n")
             return True
@@ -198,19 +202,15 @@ class G1shCLI:
             print()
         else:
             success, response = self.engine.retry_last_message()
-            if success:
-                print(f"g1sh: {response}\n")
+            print(f"g1sh: {response}\n")  # always print even on error
         
         if success:
             self.last_response = response
-        else:
-            print(f"g1sh: {response}\n")
         
         return True
     
     def run(self):
         """Main CLI loop"""
-        # Check if Ollama is running
         running, error = self.engine.check_ollama_running()
         if not running:
             print(f"   Can't connect to Ollama. Is it running?")
@@ -233,10 +233,8 @@ class G1shCLI:
             if user_input.lower() in {"exit", "quit"}:
                 print("g1sh: aight, later")
                 break
-            
-            # Try to handle as command first
+
             if not self.handle_command(user_input):
-                # Not a command, send as regular message
                 self.send_message(user_input)
 
 def main():
