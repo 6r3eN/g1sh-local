@@ -61,5 +61,3 @@ python cli.py
 
 * this is a learning project
 * expect bugs (even though i haven't experienced one)
-
-```
