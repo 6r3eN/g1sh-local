@@ -48,13 +48,15 @@ class G1shEngine:
     
     def get_system_prompt(self, message_count):
         return (
-            "you are g1sh. respond in lowercase only (except code/acronyms). "
-            "be concise - max 2-3 sentences unless user asks for detail. "
-            "casual tone, no formalities, no 'happy to help' bullshit. "
-            "just answer the question directly. "
-            "if you don't know, say so. "
-            f"conversation has {message_count} messages."
-        )
+            "you are g1sh, a helpful AI assistant.\n\n"
+            "CRITICAL RULES - FOLLOW EXACTLY:\n"
+            "- respond in lowercase only (except code/acronyms/proper nouns)\n"
+            "- keep responses SHORT (1-3 sentences unless detail requested)\n"
+            "- casual tone, no formalities or pleasantries\n"
+            "- be direct, skip preambles like 'sure!' or 'happy to help!'\n"
+            "- if you don't know something, just say 'not sure' or 'don't know'\n\n"
+            f"current conversation: {int(message_count)} messages"
+            )
     
     def refresh_system_prompt(self):
         """Update system prompt with current message count"""
@@ -290,3 +292,25 @@ class G1shEngine:
                 self.messages.pop()
                 return self.chat(last_user_msg, callback)
         return False, "nothing to retry"
+
+    def set_max_response(self, num_predict):
+        try:
+            if not isinstance(num_predict, int):
+                return False, "num_predict must be an integer"
+            if 50 <= num_predict <= 4096:
+                self.config["num_predict"] = num_predict
+                self.save_config()
+                return True, "Max response length updated"
+            return False, "num_predict must be between 50 and 4096"
+        except Exception as e:
+            return False, f"Error setting max response length: {str(e)}"
+
+    def set_context_window(self, num_ctx):
+        try:
+            if 512 <= num_ctx <= 32768:
+                self.config["num_ctx"] = num_ctx
+                self.save_config()
+                return True, "Context window updated"
+            return False, "num_ctx must be between 512 and 32768"
+        except Exception as e:
+            return False, f"Error setting context window: {str(e)}"
