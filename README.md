@@ -1,19 +1,19 @@
 # g1sh-llm
 
-A simple shell-based interface to interact with LLMs.  
-Built for learning, experimenting, and messing around from the terminal.
+a simple shell-based interface to interact with LLMs.  
+built for learning, experimenting, and messing around from the terminal.
 
-## What is this?
+## what is this?
 `g1sh-llm` is a CLI project that lets you run LLM-related stuff directly from your shell.  
 No fancy UI, just scripts, configs, and terminal vibes.
 
-## Features (WIP)
+## features (WIP)
 - Shell-based workflow
 - Lightweight & minimal
 - Easy to extend
 - Made for learning how LLM tooling works
 
-## Requirements
+## requirements
 - Linux / macOS
 - Bash or Zsh
 - Git  
