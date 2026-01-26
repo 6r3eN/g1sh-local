@@ -14,11 +14,11 @@ logging.basicConfig(
 DEFAULT_CONFIG = {
     "model": "llama3.2:3b",
     "streaming": True,
-    "max_messages": 20,
-    "temperature": 0.7,
+    "max_messages": 10,
+    "temperature": 0.6,
     "top_p": 0.9,
     "num_ctx": 4096,
-    "num_predict": 1024
+    "num_predict": 512
 }
 
 class G1shEngine:
