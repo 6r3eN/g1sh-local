@@ -45,8 +45,8 @@ perfect for:
 ### installation
 ```bash
 # clone the repo
-git clone https://github.com/6r3eN/g1sh-llm.git
-cd g1sh-llm
+git clone https://github.com/6r3eN/g1sh-local.git
+cd g1sh-local
 
 # install ollama (if not already)
 # visit https://ollama.com
